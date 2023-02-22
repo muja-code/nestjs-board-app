@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { S3Client } from '@aws-sdk/client-s3';
 import { MulterModule } from '@nestjs/platform-express';
-import { AwsSdkModule } from 'nest-aws-sdk';
 import { multerOptionsFactory } from 'src/utills/multer.options.factory';
 import { ImageController } from './image.controller';
 import { ImageService } from './image.service';
+import { S3Service } from 'src/aws/aws-s3.service';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { ImageService } from './image.service';
     }),
   ],
   controllers: [ImageController],
-  providers: [ImageService],
+  providers: [ImageService, S3Service],
 })
 export class ImageModule {}

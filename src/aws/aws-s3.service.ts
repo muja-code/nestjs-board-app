@@ -24,12 +24,13 @@ export class S3Service {
   }
 
   async putObject(file) {
-    const { path, filename } = file;
+    const { path, filename, mimetype } = file;
     await this.client.send(
       new PutObjectCommand({
         Bucket: this.bucket,
         Key: filename,
         Body: createReadStream(path),
+        ContentType: mimetype,
       }),
     );
     return `https://${this.bucket}.s3.${this.region}.amazonaws.com/${filename}`;
